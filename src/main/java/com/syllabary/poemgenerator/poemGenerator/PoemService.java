@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -13,15 +12,25 @@ import java.util.List;
 @RequestMapping("/poem-generator")
 class PoemService {
 
-    private PoemController poemController;
+    private InputController inputController;
 
-    public PoemService(PoemController poemController) {
-        this.poemController = poemController;
+    public PoemService(InputController inputController) {
+        this.inputController = inputController;
+    }
+//
+//    @GetMapping("/getSortedMatrix")
+//    public ResponseEntity<List<int[]>> getSortedMatrix() {
+//        return new ResponseEntity<List<int[]>>(inputController.getSortedMatrix(), HttpStatus.OK);
+//    }
+//
+    @GetMapping("/get2dMatrix")
+    public ResponseEntity<int[][]> get2dMatrix() {
+        return new ResponseEntity<int[][]>(inputController.get2dPoemMatrix(), HttpStatus.OK);
     }
 
     @GetMapping("/listAllPoems")
-    public @ResponseBody ResponseEntity<List<String>> get() {
-        return new ResponseEntity<List<String>>(poemController.listAllPoems(), HttpStatus.OK);
+    public ResponseEntity<List<String>> getPoemList() {
+        return new ResponseEntity<List<String>>(inputController.listAllPoems(), HttpStatus.OK);
     }
 
 }
